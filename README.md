@@ -8,9 +8,11 @@ jpg, gif, png, mp4, mov
 python CameraOrganizer.py <.json config file>
 
 Config file format is:
+```
 {
     "source":<location to find images and videos>,
     "library":<location to move images and videos into year and date-sorted folders>
 }
+```
 
 CameraOrganizer.bat will run the command from Windows GUI.
