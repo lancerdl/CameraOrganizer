@@ -51,8 +51,11 @@ class Item:
 	def get_src_info(self):
 		return "{filename} {src_file} {date}".format(filename=self.filename, src_file=self.get_src_file(), date=time.strftime("%Y-%m-%d %H-%M-%S", self.ts))
 		
-	def get_filename(self):
+	def get_dest_file(self):
 		return "{date}_{time}.{extension}".format(date=time.strftime("%Y%m%d", self.ts), time=time.strftime("%H%M%S", self.ts), extension=self.extension)
+		
+	def get_dest_file_alt(self, ix):
+		return "{date}_{time}.{ix}.{extension}".format(date=time.strftime("%Y%m%d", self.ts), time=time.strftime("%H%M%S", self.ts), ix=ix, extension=self.extension)
 		
 	def get_year(self):
 		return "{year}".format(year=time.strftime("%Y", self.ts))
@@ -88,7 +91,7 @@ def analyze_directory(target_dir):
 	#	for date, item_list in year_dict[year].items():
 	#		print(date)
 	#		for item in item_list:
-	#			print (item.get_filename())
+	#			print (item.get_dest_file())
 				
 	return year_dict
 	
@@ -120,7 +123,14 @@ def archive_new_media(target_dir, year_dict):
 
 				# Move new media items to target directory.
 				for item in item_list:
-					os.rename(item.get_src_file(), os.path.join(date_path, item.get_filename()))
+					dest_file = os.path.join(date_path, item.get_dest_file())
+					
+					# If there's a name match, add a number to the filename to prevent overwrite.
+					ix = 0
+					while os.path.isfile(dest_file):
+						ix += 1
+						dest_file = os.path.join(date_path, item.get_dest_file_alt(ix))
+					os.rename(item.get_src_file(), dest_file)
 	
 def main():
 	parser = argparse.ArgumentParser(description='Put photos and vidoes into date-sorted folders.')
