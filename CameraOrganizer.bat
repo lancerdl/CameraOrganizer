@@ -1,0 +1,1 @@
+python CameraOrganizer.py config.json
