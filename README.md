@@ -4,7 +4,7 @@ Organize photos and videos from a flat-directory into a year and date-sorted dir
 Compatible with the following image and video formats:
 jpg, gif, png, mp4, mov
 
-###Usage:
+### Usage:
 python CameraOrganizer.py <.json config file>
 
 Config file format is:
