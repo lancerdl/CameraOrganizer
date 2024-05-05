@@ -21,7 +21,7 @@ def qualify_file(filename):
 class Item:
 	def __init__(self, filename, path):
 		self.filename = filename
-		self.extension = ''.join(filename.split('.')[1:])
+		self.extension = ''.join(filename.split('.')[-1])
 		self.path = path
 		
 		handled = False;
